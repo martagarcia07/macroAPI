@@ -6,12 +6,10 @@ global CODE1
 CODE1 = "macroCalculation"
 global CODE2 
 CODE2 = "fitMacros"
+global CODE3
+CODE3 = "insertMacrosDB"
 ########################################################################
 
-########################################################################
-global ADVICE1
-ADVICE1 = "if it contains more than 5gr/100 of sugar, just leave it in the shelves"
-########################################################################
 
 ########################################################################
 global MALE 
