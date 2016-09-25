@@ -42,8 +42,10 @@ class recalculateMacros:
         self.weight = float(weight)
     #def macroCalculations(self):
         
-class insertMacrosDB:
+class insertMacrosDB(product, producto,cal,fat,pro,car,porttype,port,types):
 	try:
+		varString=",'"+product+"','"+producto+"',"+cal+","+fat+","+pro+","+car+",'"+porttype+"',"+port+",'"+types+"'" 
+		###",'oat','avena',389,7,17,66,'g',100,'sch'"
         conn = psycopg2.connect("dbname='postgres' user='postgres' host='localhost' password='postgres'")
         cur = conn.cursor()
         cur.execute("select column_name from information_schema.columns where table_name ='macros_db'")
@@ -52,7 +54,15 @@ class insertMacrosDB:
             print "   ", row
 		cur.execute("select max(id)  from macros_db ")
 		newId=rows[0][0]+1
-		cur.execute("INSERT INTO macros_db (id,product,producto,cal,fat,pro,car,porttype,port,type) VALUES ("+newId+",'oat','avena',389,7,17,66,'g',100,'sch');")            
+		try:
+			cur.execute("INSERT INTO macros_db (id,product,producto,cal,fat,pro,car,porttype,port,type) VALUES ("+newId+varString");")            
+			cur.execute("select * from macros_db ")
+        	cur.execute("select * from macros_db order by random() limit 1;")
+        	cur.execute("commit;")
+		except:
+   	        conn.rollback()
+			print "wrong values"
 
     except:
+    	conn.rollback()
         print "I am unable to connect to the database"
