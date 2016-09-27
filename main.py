@@ -3,6 +3,9 @@ __author__ = 'Meekooloh'
 
 import os
 import sys
+lib_path = os.path.abspath(os.path.join( 'lib','var'))
+sys.path.append(lib_path)
+
 import numpy as np
 import json
 
@@ -14,6 +17,9 @@ import re
 import constants
 from macroCalculation import macroCalculation
 from fitMacros import fitMacros,recalculateMacros
+from insertMacrosDB import insertMacrosDB
+
+
 source_dir= "./tmp"
 fileName=source_dir+"/file"
 ######################################################## MAIN ##################################################################
@@ -24,7 +30,6 @@ if __name__ == "__main__":
                 #weight,height, age, gender,activityLevel,goal, user_id
                 userMacros = macroCalculation(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6],sys.argv[7])
                 userMacros.macroCalculations()
-                print "hola"
                 if not os.path.exists(source_dir) :
                     os.makedirs(source_dir)
                 json.dump(userMacros.macros, open(fileName+sys.argv[8], 'w'))
@@ -41,4 +46,7 @@ if __name__ == "__main__":
             elif len(sys.argv)==4:
                 m=fitMacros(sys.argv[2],sys.argv[3])
                 m.macroCalculations()
+        elif sys.argv[1] == constants.CODE3 and len(sys.argv)==11:
+            ### 2-10 product, producto,cal,fat,pro,car,porttype,port,types
+            insertMacrosDB(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6],sys.argv[7],sys.argv[8],sys.argv[9],sys.argv[10])
 ####################################################### END MAIN ################################################################
