@@ -1,10 +1,12 @@
 #RESOURCES
+  python2.7
   astropy
   numpy
   json
-  psycopg2
-
-
+  psycopg2  ##postgresql
+  pymongo   ##mongodb
+  passlib
+  bcrypt
 examples
 
 python main.py macroCalculation 80 175 32 male  moderate massgain userid

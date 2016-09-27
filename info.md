@@ -61,13 +61,11 @@ CREATE TABLE users_db
 (
   id serial NOT NULL,
   username character varying(20) NOT NULL,
-  pass character(40) NOT NULL,
+  pass character(100) NOT NULL,
   name character varying(20) NOT NULL,
   surname character varying(20) NOT NULL,
   last_online date NOT NULL,
   birthdate date NOT NULL,
-  height_cm integer NOT NULL,
-  weight_kg decimal NOT NULL,
   email character varying(100) NOT NULL,
   CONSTRAINT utilisateur_pkey PRIMARY KEY (id)
 );

@@ -18,14 +18,12 @@ class insertMacrosDB:
             rows = cur.fetchall()
             newId=rows[0][0]+1
             try:
-                cur.execute("INSERT INTO macros_db (id,product,producto,cal,fat,pro,car,porttype,port,type) VALUES ("+str(newId)+varString+");")            
-
+                cur.execute("INSERT INTO macros_db (id,product,producto,cal,fat,pro,car,porttype,port,type) VALUES ("+str(newId)+varString+");")
                 cur.execute("commit;")
             except:
-                print "INSERT INTO macros_db (id,product,producto,cal,fat,pro,car,porttype,port,type) VALUES ("+str(newId)+varString+");"
                 conn.rollback()
                 print "wrong values"
 
         except:
             conn.rollback()
-            print "I am unable to connect to the database"
+            print "Unable to connect to the database"

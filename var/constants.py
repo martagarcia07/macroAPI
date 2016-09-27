@@ -8,6 +8,8 @@ global CODE2
 CODE2 = "fitMacros"
 global CODE3
 CODE3 = "insertMacrosDB"
+global CODE4
+CODE4 = "registerUser"
 ########################################################################
 
 

@@ -1,14 +1,19 @@
 # -*- coding: utf-8 -*-
 __author__ = 'Meekooloh'
 
+import os
+import sys
 import constants
+import datetime
+import json
+from pymongo import MongoClient
 
 # 1g Protein = 4 Calories
 # 1g Carbohydrate = 4 Calories
 # 1g Fat = 9 Calories
 
 class macroCalculation:
-    def __init__(self, weight,height, age, gender,activityLevel,goal):
+    def __init__(self, weight,height, age, gender,activityLevel,goal,userId):
         self.weight = float(weight)
         self.height = float(height)
         self.age = float(age)
@@ -16,6 +21,7 @@ class macroCalculation:
         self.activityLevel = activityLevel
         self.macros= dict()    
         self.goal=goal    
+        self.userId=userId
     def macroCalculations(self):
         if self.gender==constants.MALE:
             REE=10*self.weight + 6.25*self.height - 5*self.age + 5
@@ -51,4 +57,12 @@ class macroCalculation:
         self.macros["fat_gr_intake"]=fat_gr_intake
         self.macros["pro_gr_intake"]=pro_gr_intake
         self.macros["car_gr_intake"]=car_gr_intake
+        self.macros["date"]=datetime.datetime.now().isoformat()
+        #source_dir= "./tmp"
+        #fileName=source_dir+"/"+datetime.datetime.now().isoformat().replace('-','').replace(':','').replace('.','')+'_'
+        #if not os.path.exists(source_dir) :
+        #    os.makedirs(source_dir)
+        #json.dump(self.macros, open(fileName+self.userId, 'w'))
+        db = MongoClient('localhost', 27017) 
+        db.userMacros[self.userId].insert_many([self.macros])
         
