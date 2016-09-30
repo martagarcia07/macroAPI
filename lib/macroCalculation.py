@@ -7,7 +7,7 @@ import constants
 import datetime
 import json
 from pymongo import MongoClient
-
+from bson.objectid import ObjectId
 # 1g Protein = 4 Calories
 # 1g Carbohydrate = 4 Calories
 # 1g Fat = 9 Calories
@@ -65,4 +65,11 @@ class macroCalculation:
         #json.dump(self.macros, open(fileName+self.userId, 'w'))
         db = MongoClient('localhost', 27017) 
         db.userMacros[self.userId].insert_many([self.macros])
+        ids = []
+        try:
+            for obj in  db.userMacros[self.userId].find({"date": {"$lt":self.macros["date"]}}):
+                ids.append(obj["_id"])
+            db.userMacros[self.userId].remove({"_id": {"$in":ids}})          
+        except:
+            print "mongo went mongol"
         
